@@ -11,6 +11,14 @@ class Team extends Model
         return $this->hasMany(User::class);
     }
 
+    public function recruits(){
+        return $this->hasMany(User::class, 'recruitingteam_id');
+    }
+
+    public function newRecruits(){
+        return $this->recruits()->whereDoesntHave('team');
+    }
+
     public function chatrooms(){
         return $this->hasOne(Chatroom::class);
     }

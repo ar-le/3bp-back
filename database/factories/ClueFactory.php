@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\chatroom>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
-class ChatroomFactory extends Factory
+class ClueFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,9 +17,9 @@ class ChatroomFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->sentence(2),
-            'description' => fake()->sentence(6),
-            'creator_id' => 1
+            'title' => 'Clue '. fake()->word(),
+            'type' => 'text',
+            'content' => fake()->sentence(10)
         ];
     }
 }

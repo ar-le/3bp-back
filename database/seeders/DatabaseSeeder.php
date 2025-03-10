@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\ChatMessage;
+use App\Models\Chatmessage as ModelsChatmessage;
 use App\Models\ChatMessageInfo;
 use App\Models\Chatroom;
 use App\Models\User;
@@ -16,60 +17,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
 
-        User::create([
-            'username' => 'TestUser',
-            'email' => 'test@example.com',
-            'password' => 'password',
-            'role' => 'admin',
-            'avatar' => null,
 
+        $this->call([
+            TeamSeeder::class,
+            UsersSeeder::class,
+            ChatroomSeeder::class,
+            ChatmessageSeeder::class,
+            CluesSeeder::class
         ]);
-
-        User::create([
-            'username' => 'TestUser2',
-            'email' => 'test2@example.com',
-            'password' => 'password',
-            'role' => 'user',
-            'avatar' => null,
-
-        ]);
-
-        Chatroom::create([
-            'name' => 'chat 1',
-            'description' => 'some chat',
-            'creator_id' => 1
-        ]);
-        Chatroom::create([
-            'name' => 'chat 2',
-            'description' => 'some chat',
-            'creator_id' => 1
-        ]);
-
-        ChatMessage::create([
-            'content' => 'hola',
-
-        ]);
-        ChatMessage::create([
-            'content' => 'adios',
-
-        ]);
-        ChatMessageInfo::create([
-            'user_id' => 1,
-            'chatroom_id' => 1,
-            'chatmessage_id' =>1
-        ]);
-        ChatMessageInfo::create([
-            'user_id' => 1,
-            'chatroom_id' => 1,
-            'chatmessage_id' =>2
-        ]);
-
-
-
-
-
 
     }
 }

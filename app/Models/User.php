@@ -52,11 +52,16 @@ class User extends Authenticatable
         return $this->belongsTo(Team::class);
     }
 
+    public function recruitingTeam(){
+        return $this->belongsTo(Team::class, 'recruitingteam_id');
+    }
+
     //Obtener personajes que un mod puede usar
     public function characters(){
         return $this->belongsToMany(User::class, 'can_use_character', 'mod_id', 'character_id');
     }
 
+    //mods que pueden usar un personaje
     public function mods(){
         return $this->belongsToMany(User::class, 'can_use_character', 'character_id', 'mod_id');
     }
