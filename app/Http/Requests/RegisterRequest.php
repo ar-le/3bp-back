@@ -34,7 +34,10 @@ class RegisterRequest extends FormRequest
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8',
             'avatar' => 'sometimes|string',
-            'extension' => [Rule::excludeIf(!$this->has('avatar') || $this->avatar == null), 'required', 'in:png,jpg,gif,jpeg,webp']
+            'extension' => [Rule::excludeIf(!$this->has('avatar') || $this->avatar == null), 'required', 'in:png,jpg,gif,jpeg,webp'],
+            'accepts_cookies' => 'required|boolean|accepted',
+            'accepts_communication' => 'required|boolean|accepted'
         ];
     }
+
 }

@@ -28,6 +28,8 @@ class CreateUser
             'role' => isset($request['role']) ? $request['role'] : 'user',
             'points' => isset($request['points']) ? $request['points'] : 0,
             'team_id' => isset($request['team_id']) ? $request['team_id'] : null,
+            'accepts_cookies'=> isset($request['accepts_cookies']) ? $request['accepts_cookies'] : false,
+            'accepts_communication'=> isset($request['accepts_communication']) ? $request['accepts_communication'] : false
         ]);
     }
 }

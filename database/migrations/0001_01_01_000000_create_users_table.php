@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('role');
             $table->string('avatar')->nullable();
             $table->integer('points')->default(0);
+            $table->boolean('accepts_cookies')->default(false);
+            $table->boolean('accepts_communication')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });
