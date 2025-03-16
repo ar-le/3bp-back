@@ -19,7 +19,7 @@ class Team extends Model
         return $this->recruits()->whereDoesntHave('team');
     }
 
-    public function chatrooms(){
+    public function chatroom(){
         return $this->hasOne(Chatroom::class);
     }
 }

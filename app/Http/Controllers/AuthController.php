@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Services\UserService;
 use Illuminate\Routing\Controller;
-
+use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -47,6 +47,28 @@ class AuthController extends Controller
         $user = $this->userService->createUser($request->all());
 
         return response()->json(new LoggedUserResource($user));
+    }
+
+    //Available username
+    public function availableUsername($username)
+    {
+        $user = User::where('username', $username)->first();
+        return $user ? 
+            response()->json(['msg' => 'Username taken'], 400) :
+            response()->json(['msg' => 'Username available'], 200)
+            ;
+
+    }
+
+    //Available email
+    public function availableEmail($email)
+    {
+        $user = User::where('email', $email)->first();
+        return $user ? 
+            response()->json(['msg' => 'email taken'], 400) :
+            response()->json(['msg' => 'email available'], 200)
+            ;
+
     }
 
 

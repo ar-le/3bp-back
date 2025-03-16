@@ -22,8 +22,8 @@ class CreateUser
             'username' => $request['username'],
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
-            'avatar' => (isset($request['avatar']) && $request['avatar'] != null) ?
-                leerImagen($request['avatar'], $request['extension'], 'avatars')
+            'avatar' => (isset($request['base64Avatar']) && $request['base64Avatar'] != null) ?
+                leerImagen($request['base64Avatar'], $request['extension'], 'avatars')
                 : null,
             'role' => isset($request['role']) ? $request['role'] : 'user',
             'points' => isset($request['points']) ? $request['points'] : 0,

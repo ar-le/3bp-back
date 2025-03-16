@@ -2,23 +2,54 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Chatrooms\GetAllChatrooms;
+use App\Http\Resources\ChatroomUserResource;
 use App\Models\chatroom;
 use App\Http\Requests\StorechatroomRequest;
 use App\Http\Requests\UpdatechatroomRequest;
+use App\Http\Resources\ChatroomAuthResource;
+use App\Models\User;
+use App\Services\ChatroomsService;
+use Illuminate\Routing\Controller;
+use Illuminate\Http\Request;
 
 class ChatroomController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    private ChatroomsService $chatroomsService;
+
+    public function __construct(ChatroomsService $chatroomsService)
     {
-        //
+        $this->chatroomsService = $chatroomsService;
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Lista completa de chatrooms paginada.
      */
+    public function index(Request $request)
+    {
+        $chatrooms = $this->chatroomsService->getAllChatrooms($request->query());
+        //return  ChatroomAuthResource::collection($chatrooms);
+        // dd($chatrooms);
+        return ChatroomAuthResource::collection($chatrooms);
+
+
+    }
+
+    //Chatrooms de equipos
+    public function getTeamsChatroom()
+    {
+        $chatrooms = $this->chatroomsService->getTeamsChatrooms();
+        return  ChatroomAuthResource::collection($chatrooms);
+    }
+
+    public function getUserChatrooms(int $userId)
+    {
+        $user = User::find($userId);
+        $chatrooms = $this->chatroomsService->getUserChatrooms($user);
+        return ChatroomUserResource::collection($chatrooms);
+    }
+
+
     public function create()
     {
         //
