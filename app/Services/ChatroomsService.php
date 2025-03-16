@@ -2,10 +2,15 @@
 
 namespace App\Services;
 
+use App\Actions\Chatrooms\CreateChatroomAction;
+use App\Actions\Chatrooms\DeleteChatroomAction;
 use App\Actions\Chatrooms\GetAllChatrooms;
 use App\Actions\Chatrooms\GetTeamsChatrooms;
 use App\Actions\Chatrooms\GetUserChatrooms;
+use App\Actions\Chatrooms\UpdateChatroomAction;
+use App\Models\Chatroom;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 
 class ChatroomsService
 {
@@ -15,17 +20,26 @@ class ChatroomsService
     private GetAllChatrooms $getAllChatroomsAction;
     private GetTeamsChatrooms $getTeamsChatroomsAction;
     private GetUserChatrooms $getUserChatroomsAction;
+    private CreateChatroomAction $createChatroomAction;
+    private UpdateChatroomAction $updateChatroomAction;
+    private DeleteChatroomAction $deleteChatroomAction;
 
     public function __construct(
         GetAllChatrooms $getAllChatrooms,
         GetTeamsChatrooms $getTeamsChatrooms,
-        GetUserChatrooms $getUserChatrooms
+        GetUserChatrooms $getUserChatrooms,
+        CreateChatroomAction $createChatroomAction,
+        UpdateChatroomAction $updateChatroomAction,
+        DeleteChatroomAction $deleteChatroomAction
 
         )
     {
         $this->getAllChatroomsAction = $getAllChatrooms;
         $this->getTeamsChatroomsAction = $getTeamsChatrooms;
         $this->getUserChatroomsAction = $getUserChatrooms;
+        $this->createChatroomAction = $createChatroomAction;
+        $this->updateChatroomAction = $updateChatroomAction;
+        $this->deleteChatroomAction = $deleteChatroomAction;
     }
 
     public function getAllChatrooms(array $request)
@@ -38,8 +52,23 @@ class ChatroomsService
         return $this->getTeamsChatroomsAction->execute();
     }
 
-    public function getUserChatrooms(User $user)
+    public function getUserChatrooms(User $user): Collection
     {
         return $this->getUserChatroomsAction->execute($user);
+    }
+
+    public function createChatroom(array $request): Chatroom
+    {
+        return $this->createChatroomAction->execute($request);
+    }
+
+    public function updateChatroom(int $chatroomId, array $request): Chatroom
+    {
+        return $this->updateChatroomAction->execute($chatroomId, $request);
+    }
+
+    public function deleteChatroom (int $id)
+    {
+        return $this->deleteChatroomAction->execute($id);
     }
 }

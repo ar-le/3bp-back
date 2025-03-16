@@ -3,9 +3,8 @@
 namespace App\Actions\Chatrooms;
 
 use App\Models\Chatroom;
-use Illuminate\Support\Arr;
 
-class CreateChatroomAction
+class UpdateChatroomAction
 {
     /**
      * Create a new class instance.
@@ -15,13 +14,14 @@ class CreateChatroomAction
         //
     }
 
-    public function execute(array $request)
+    public function execute(int $chatroomId, array $request): Chatroom
     {
-       return Chatroom::create([
+        $chatroom = Chatroom::findOrFail($chatroomId);
+        $chatroom->update([
             'name' => $request['name'],
             'description' => $request['description'],
-            'creator_id' => $request['creator_id'],
-            'team_id' => Arr::exists($request, 'team_id') ? $request['team_id'] : null
+
         ]);
+        return $chatroom;
     }
 }

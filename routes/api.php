@@ -20,5 +20,8 @@ Route::get('availableEmail/{email}', [AuthController::class, 'availableEmail']);
 
 //chatrooms
 Route::get('chatrooms', [ChatroomController::class, 'index']);
-Route::get('teamschatrooms', [ChatroomController::class, 'getTeamsChatroom']);
+Route::get('chatrooms/teams', [ChatroomController::class, 'getTeamsChatroom']);
 Route::get('userchatrooms/{userId}', [ChatroomController::class, 'getUserChatrooms']);
+Route::post('chatrooms/create', [ChatroomController::class, 'store']);
+Route::put('chatrooms/{chatroomId:int}', [ChatroomController::class, 'update']);
+Route::delete('chatrooms/{chatroom}', [ChatroomController::class, 'destroy'])->scopeBindings();

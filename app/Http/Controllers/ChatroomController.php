@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Chatrooms\GetAllChatrooms;
+use App\Http\Requests\GetChatroomsRequest;
+use App\Http\Requests\PostChatroomUser;
+use App\Http\Requests\PutChatroomUser;
 use App\Http\Resources\ChatroomUserResource;
 use App\Models\chatroom;
 use App\Http\Requests\StorechatroomRequest;
@@ -25,7 +28,7 @@ class ChatroomController extends Controller
     /**
      * Lista completa de chatrooms paginada.
      */
-    public function index(Request $request)
+    public function index(GetChatroomsRequest $request)
     {
         $chatrooms = $this->chatroomsService->getAllChatrooms($request->query());
         //return  ChatroomAuthResource::collection($chatrooms);
@@ -34,6 +37,7 @@ class ChatroomController extends Controller
 
 
     }
+
 
     //Chatrooms de equipos
     public function getTeamsChatroom()
@@ -50,48 +54,31 @@ class ChatroomController extends Controller
     }
 
 
-    public function create()
+    public function store(PostChatroomUser $request)
     {
-        //
+        $chatroom = $this->chatroomsService->createChatroom($request->all());
+        return new ChatroomUserResource($chatroom);
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StorechatroomRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(chatroom $chatroom)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(chatroom $chatroom)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdatechatroomRequest $request, chatroom $chatroom)
+    public function update($chatroomId, PutChatroomUser $request)
     {
-        //
+        $chatroom = $this->chatroomsService->updateChatroom($chatroomId, $request->all());
+        return new ChatroomUserResource($chatroom);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(chatroom $chatroom)
+    public function destroy($chatroomId)
     {
-        //
+        $chatroom = $this->chatroomsService->deleteChatroom($chatroomId);
+        return new ChatroomUserResource($chatroom);
     }
 }
