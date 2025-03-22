@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Clue;
+use App\Models\Transmission;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,6 +14,6 @@ class CluesSeeder extends Seeder
      */
     public function run(): void
     {
-        Clue::factory()->count(5)->create();
+        Transmission::factory()->count(5)->create();
     }
 }

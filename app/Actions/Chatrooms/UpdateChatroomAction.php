@@ -14,9 +14,9 @@ class UpdateChatroomAction
         //
     }
 
-    public function execute(int $chatroomId, array $request): Chatroom
+    public function execute( array $request): Chatroom
     {
-        $chatroom = Chatroom::findOrFail($chatroomId);
+        $chatroom = Chatroom::findOrFail($request['id']);
         $chatroom->update([
             'name' => $request['name'],
             'description' => $request['description'],

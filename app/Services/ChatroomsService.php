@@ -62,9 +62,9 @@ class ChatroomsService
         return $this->createChatroomAction->execute($request);
     }
 
-    public function updateChatroom(int $chatroomId, array $request): Chatroom
+    public function updateChatroom( array $request): Chatroom
     {
-        return $this->updateChatroomAction->execute($chatroomId, $request);
+        return $this->updateChatroomAction->execute($request);
     }
 
     public function deleteChatroom (int $id)

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
-class ClueFactory extends Factory
+class TransmissionFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +17,7 @@ class ClueFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => 'Clue '. fake()->word(),
+            'title' => 'Transmission '. fake()->word(),
             'type' => 'text',
             'content' => fake()->sentence(10)
         ];

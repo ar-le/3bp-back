@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChatroomController;
+use App\Http\Controllers\TransmissionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,5 +24,14 @@ Route::get('chatrooms', [ChatroomController::class, 'index']);
 Route::get('chatrooms/teams', [ChatroomController::class, 'getTeamsChatroom']);
 Route::get('userchatrooms/{userId}', [ChatroomController::class, 'getUserChatrooms']);
 Route::post('chatrooms/create', [ChatroomController::class, 'store']);
-Route::put('chatrooms/{chatroomId:int}', [ChatroomController::class, 'update']);
+Route::put('chatrooms', [ChatroomController::class, 'update']);
 Route::delete('chatrooms/{chatroomId}', [ChatroomController::class, 'destroy']);
+
+
+//transmissions
+//Route::apiResource('transmissions', TransmissionController::class);
+Route::get('transmissions', [TransmissionController::class, 'index']);
+Route::get('transmission/{id}', [TransmissionController::class, 'show']);
+Route::post('transmissions', [TransmissionController::class, 'store']);
+Route::put('transmissions', [TransmissionController::class, 'update']);
+Route::delete('transmissions/{id}', [TransmissionController::class, 'destroy']);

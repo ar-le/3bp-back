@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PutChatroomUser extends FormRequest
+class PutTransmission extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,9 +22,10 @@ class PutChatroomUser extends FormRequest
     public function rules(): array
     {
         return [
-            'id' =>'required|numeric',
-            'name' => 'required|string|min:3|unique:chatrooms,name',
-            'description' => 'required|string',
+            'id' => 'required|numeric',
+            'title' => 'required | string',
+            'type' => 'required | in:text,video',
+            'content' => 'required | string'
         ];
     }
 }

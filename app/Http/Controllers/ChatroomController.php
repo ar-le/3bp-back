@@ -67,9 +67,9 @@ class ChatroomController extends Controller
     }
 
 
-    public function update($chatroomId, PutChatroomUser $request)
+    public function update(PutChatroomUser $request)
     {
-        $chatroom = $this->chatroomsService->updateChatroom($chatroomId, $request->all());
+        $chatroom = $this->chatroomsService->updateChatroom($request->all());
         return new ChatroomUserResource($chatroom);
     }
 
