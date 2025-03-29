@@ -15,6 +15,7 @@ use App\Models\User;
 use App\Services\ChatroomsService;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ChatroomController extends Controller
 {
@@ -46,10 +47,17 @@ class ChatroomController extends Controller
         return  ChatroomAuthResource::collection($chatrooms);
     }
 
-    public function getUserChatrooms(int $userId)
+    public function getUserChatrooms()
     {
-        $user = User::find($userId);
+        $user = Auth::user();
         $chatrooms = $this->chatroomsService->getUserChatrooms($user);
+        return ChatroomUserResource::collection($chatrooms);
+    }
+
+    public function getUserTeamsChatrooms()
+    {
+        $user = Auth::user();
+        $chatrooms = $this->chatroomsService->getUserTeamsChatrooms($user);
         return ChatroomUserResource::collection($chatrooms);
     }
 

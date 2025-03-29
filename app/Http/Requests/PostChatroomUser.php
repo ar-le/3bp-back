@@ -23,8 +23,7 @@ class PostChatroomUser extends FormRequest
     {
         return [
             'name' => 'required|string|min:3|unique:chatrooms,name',
-            'description' => 'required|string',
-            'creator_id' => 'required|exists:users,id'
+            'description' => 'required|string'
         ];
     }
 }

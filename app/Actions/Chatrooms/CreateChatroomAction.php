@@ -4,6 +4,7 @@ namespace App\Actions\Chatrooms;
 
 use App\Models\Chatroom;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 
 class CreateChatroomAction
 {
@@ -20,7 +21,7 @@ class CreateChatroomAction
        return Chatroom::create([
             'name' => $request['name'],
             'description' => $request['description'],
-            'creator_id' => $request['creator_id'],
+            'creator_id' => Auth::user()->id,
             'team_id' => Arr::exists($request, 'team_id') ? $request['team_id'] : null
         ]);
     }

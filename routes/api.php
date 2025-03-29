@@ -13,19 +13,25 @@ Route::get('/user', function (Request $request) {
 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
-Route::get('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 //register checks
 Route::get('availableUsername/{username}', [AuthController::class, 'availableUsername']);
 Route::get('availableEmail/{email}', [AuthController::class, 'availableEmail']);
+
+Route::middleware(['auth:sanctum'])->group(function () {
+
+
+Route::get('logout', [AuthController::class, 'logout']);
+
 
 
 //chatrooms
 Route::get('chatrooms', [ChatroomController::class, 'index']);
 Route::get('chatrooms/teams', [ChatroomController::class, 'getTeamsChatroom']);
-Route::get('userchatrooms/{userId}', [ChatroomController::class, 'getUserChatrooms']);
+Route::get('userchatrooms', [ChatroomController::class, 'getUserChatrooms']);
 Route::post('chatrooms/create', [ChatroomController::class, 'store']);
 Route::put('chatrooms', [ChatroomController::class, 'update']);
 Route::delete('chatrooms/{chatroomId}', [ChatroomController::class, 'destroy']);
+Route::get('chatrooms/userteams', [ChatroomController::class, 'getUserTeamsChatrooms']);
 
 
 //transmissions
@@ -35,3 +41,5 @@ Route::get('transmission/{id}', [TransmissionController::class, 'show']);
 Route::post('transmissions', [TransmissionController::class, 'store']);
 Route::put('transmissions', [TransmissionController::class, 'update']);
 Route::delete('transmissions/{id}', [TransmissionController::class, 'destroy']);
+
+});

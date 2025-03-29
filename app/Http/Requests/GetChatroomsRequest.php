@@ -24,9 +24,10 @@ class GetChatroomsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'textFilter' => 'string',
-            'after' => Rule::date()->format('Y-m-d'),
-            'perPage' => [new ValidQuantity(10,20)]
+            'textFilter' => 'nullable | string',
+            'after' => ['nullable', Rule::date()->format('Y-m-d')],
+            'perPage' => ['nullable', new ValidQuantity(10,20)],
+            'page' => 'nullable | numeric'
         ];
     }
 }

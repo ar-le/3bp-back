@@ -5,8 +5,10 @@ namespace App\Services;
 use App\Actions\Chatrooms\CreateChatroomAction;
 use App\Actions\Chatrooms\DeleteChatroomAction;
 use App\Actions\Chatrooms\GetAllChatrooms;
+use App\Actions\Chatrooms\GetChatroomsUserAction;
 use App\Actions\Chatrooms\GetTeamsChatrooms;
 use App\Actions\Chatrooms\GetUserChatrooms;
+use App\Actions\Chatrooms\GetUserTeamChatroomAction;
 use App\Actions\Chatrooms\UpdateChatroomAction;
 use App\Models\Chatroom;
 use App\Models\User;
@@ -23,6 +25,8 @@ class ChatroomsService
     private CreateChatroomAction $createChatroomAction;
     private UpdateChatroomAction $updateChatroomAction;
     private DeleteChatroomAction $deleteChatroomAction;
+    private GetUserTeamChatroomAction $getUserTeamChatroomAction;
+    private GetChatroomsUserAction $getChatroomsUserAction;
 
     public function __construct(
         GetAllChatrooms $getAllChatrooms,
@@ -30,7 +34,9 @@ class ChatroomsService
         GetUserChatrooms $getUserChatrooms,
         CreateChatroomAction $createChatroomAction,
         UpdateChatroomAction $updateChatroomAction,
-        DeleteChatroomAction $deleteChatroomAction
+        DeleteChatroomAction $deleteChatroomAction,
+        GetUserTeamChatroomAction $getUserTeamChatroomAction,
+        GetChatroomsUserAction $getChatroomsUserAction
 
         )
     {
@@ -40,6 +46,8 @@ class ChatroomsService
         $this->createChatroomAction = $createChatroomAction;
         $this->updateChatroomAction = $updateChatroomAction;
         $this->deleteChatroomAction = $deleteChatroomAction;
+        $this->getUserTeamChatroomAction = $getUserTeamChatroomAction;
+        $this->getChatroomsUserAction = $getChatroomsUserAction;
     }
 
     public function getAllChatrooms(array $request)
@@ -71,4 +79,11 @@ class ChatroomsService
     {
         return $this->deleteChatroomAction->execute($id);
     }
+
+    public function getUserTeamsChatrooms(User $user)
+    {
+        return $this->getUserTeamChatroomAction->execute($user);
+    }
+
+
 }
