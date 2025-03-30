@@ -32,11 +32,7 @@ class ChatroomController extends Controller
     public function index(GetChatroomsRequest $request)
     {
         $chatrooms = $this->chatroomsService->getAllChatrooms($request->query());
-        //return  ChatroomAuthResource::collection($chatrooms);
-        // dd($chatrooms);
         return ChatroomAuthResource::collection($chatrooms);
-
-
     }
 
 

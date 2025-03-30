@@ -17,7 +17,7 @@ class ChatmessageSeeder extends Seeder
      */
     public function run(): void
     {
-        $totalmessages = 30;
+        $totalmessages = 100;
         Chatmessage::factory()->count($totalmessages)->create();
 
         $chatrooms = Chatroom::all();
@@ -25,7 +25,7 @@ class ChatmessageSeeder extends Seeder
         $messages = Chatmessage::all();
 
         //crear relación ternaria mensaje - autor - chatroom
-        foreach ($messages as $message) {
+        foreach ($messages as $index => $message) {
             ChatMessageInfo::create([
                         'chatmessage_id' => $message->id,
                         'user_id' => $users->random()->id,

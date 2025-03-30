@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ChatMessageController;
 use App\Http\Controllers\ChatroomController;
 use App\Http\Controllers\TransmissionController;
+use App\Http\Middleware\TeamCheck;
+use App\Models\Chatmessage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +35,18 @@ Route::post('chatrooms/create', [ChatroomController::class, 'store']);
 Route::put('chatrooms', [ChatroomController::class, 'update']);
 Route::delete('chatrooms/{chatroomId}', [ChatroomController::class, 'destroy']);
 Route::get('chatrooms/userteams', [ChatroomController::class, 'getUserTeamsChatrooms']);
+
+
+//chat messages
+    Route::middleware([TeamCheck::class])->group(function () {
+        Route::get('chatmessages', [ChatMessageController::class, 'index']);
+        Route::post('chatmessages/create', [ChatMessageController::class, 'store']);
+    });
+Route::put('chatmessages/hide', [ChatMessageController::class, 'hide']);
+Route::delete('chatmessages', [ChatMessageController::class, 'destroy']);
+Route::get('chatmessages/report', [ChatMessageController::class, 'report']);
+
+Route::get('chatmessages/reported', [ChatMessageController::class, 'getReported']);
 
 
 //transmissions

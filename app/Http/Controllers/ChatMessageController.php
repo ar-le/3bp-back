@@ -2,33 +2,41 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GetChatmessageRequest;
+use App\Http\Requests\GetChatmessagesRequest;
+use App\Http\Requests\PostChatmessageRequest;
+use App\Http\Resources\ChatMessageInfoCompleteResource;
+use App\Http\Resources\ChatMessageInfoResource;
+use App\Http\Resources\ChatmessageResource;
 use App\Models\chatMessage;
+use App\Services\ChatMessagesService;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+
 
 class ChatMessageController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
+    private ChatMessagesService $chatMessagesService;
+
+    public function __construct(ChatMessagesService $chatMessagesService) {
+        $messages = $this->chatMessagesService = $chatMessagesService;
+
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+
+    public function index(GetChatmessagesRequest $request)
     {
-        //
+        //comprobar si hay team y el user es del team - middleware?
+        $messages = $this->chatMessagesService->getChatMessages($request->all());
+        return ChatMessageInfoResource::collection($messages);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+
+    public function store(PostChatmessageRequest $request)
     {
-        //
+        $message = $this->chatMessagesService->createChatmessage($request->all());
+        $this->chatMessagesService->sendNewMessageEvent($message, $request['chatroom']);
+        return new ChatmessageResource($message);
     }
 
     /**
@@ -52,14 +60,34 @@ class ChatMessageController extends Controller
      */
     public function update(Request $request, chatMessage $chatMessage)
     {
-        //
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(chatMessage $chatMessage)
+    public function destroy(GetChatmessageRequest $request)
     {
-        //
+        $message = $this->chatMessagesService->deleteChatmessage($request->id);
+        return response(null, 204);
+    }
+
+    //ocultar
+    public function hide(GetChatmessageRequest $request)
+    {
+        $message = $this->chatMessagesService->hideChatmessage($request->id);
+        return response(null, 204);
+    }
+
+    public function report(GetChatmessageRequest $request)
+    {
+        $message = $this->chatMessagesService->reportChatmessage($request->id);
+        return response(null, 204);
+    }
+
+    public function getReported(Request $request)
+    {
+        $messages = $this->chatMessagesService->getReportedChatmessages($request->all());
+        return ChatMessageInfoCompleteResource::collection($messages);
     }
 }

@@ -11,8 +11,8 @@ class Chatroom extends Model
     use HasFactory;
     protected $guarded = ['id'];
 
-    public function chatMessages(){
-        return $this->belongsToMany(ChatMessage::class, 'chatmessage_chatroom_user')->using(ChatMessageInfo::class);
+    public function chatmessages(){
+        return $this->belongsToMany(Chatmessage::class, 'chatmessage_chatroom_user')->using(ChatMessageInfo::class);
     }
 
     public function lastChatMessagesComplete($startingPostId = null){

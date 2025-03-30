@@ -22,7 +22,7 @@ class ChatMessageInfo extends Pivot
         return $this->belongsTo(Chatroom::class);
     }
 
-    public function chatMessage() {
+    public function chatmessage() {
         return $this->belongsTo(Chatmessage::class);
     }
 }
