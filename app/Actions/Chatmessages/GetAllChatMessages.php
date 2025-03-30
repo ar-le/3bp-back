@@ -19,6 +19,7 @@ class GetAllChatMessages
 
     public function execute(array $request)
     {
+        
         $messages = ChatMessageInfo::with(['user', 'chatmessage'])->where('chatroom_id',  $request['chatroom']);
         //dd($messages);
         $user = Auth::user();
