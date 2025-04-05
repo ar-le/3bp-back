@@ -68,7 +68,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     //user
     Route::middleware([RoleCheck::class . ':admin,mod'])->group(function () {
-        Route::get('characters', [UserController::class, 'getModCharacters']);
+        Route::get('users/mod/characters', [UserController::class, 'getModCharacters']);
     });
 
 

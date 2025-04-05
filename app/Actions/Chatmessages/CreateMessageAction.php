@@ -5,6 +5,7 @@ namespace App\Actions\Chatmessages;
 use App\Models\Chatmessage;
 use App\Models\ChatMessageInfo;
 use App\Models\User;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 
 class CreateMessageAction
@@ -20,7 +21,7 @@ class CreateMessageAction
     public function execute(array $request)
     {
         //Si se recibe el id de un personaje, se guarda el personaje como autor y el id del mod
-        if($request['character'])
+        if(Arr::exists($request, 'character') && !empty($request['character']))
         {
             $user = User::findOrFail($request['character']);
             $mod = Auth::user();
