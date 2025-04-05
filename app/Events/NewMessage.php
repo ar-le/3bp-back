@@ -2,6 +2,9 @@
 
 namespace App\Events;
 
+use App\Http\Resources\ChatMessageInfoResource;
+use App\Http\Resources\ChatmessageResource;
+use App\Http\Resources\UserBasicResource;
 use App\Models\Chatmessage;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -20,8 +23,8 @@ class NewMessage implements ShouldBroadcastNow
      * Create a new event instance.
      */
 
-     private Chatmessage $chatmessage;
-     private $chatroomId;
+    private Chatmessage $chatmessage;
+    private $chatroomId;
     public function __construct(Chatmessage $message, $chatroomId)
     {
         $this->chatmessage = $message;
@@ -41,22 +44,22 @@ class NewMessage implements ShouldBroadcastNow
     }
 
 
-    public function broadcastAs(){
+    public function broadcastAs()
+    {
         return 'message';
     }
 
 
     public function broadcastWith()
     {
-        $user = $this->chatmessage->user->first();
-        return [
-            'id' => $this->chatmessage->id,
-            'content' => $this->chatmessage->content,
-            'hidden' => $this->chatmessage->hidden,
-            'creator' => [
-                'id' => $user->id,
-                'username' => $user->username,
-            ]
-       ];
+        $messageInfo = $this->chatmessage->chatmessageInfo;
+        // $user = $this->chatmessage->user->first();
+        /* $resource =  new ChatMessageInfoResource($messageInfo);
+        $resource->toArray(); */
+        return
+            [
+                'message' => new ChatmessageResource($messageInfo->chatmessage),
+                'user' => new UserBasicResource($messageInfo->user)
+            ];
     }
 }

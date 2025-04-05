@@ -35,8 +35,9 @@ class ChatMessageController extends Controller
     public function store(PostChatmessageRequest $request)
     {
         $message = $this->chatMessagesService->createChatmessage($request->all());
+        $messageInfo = $message->chatmessageInfo;
         $this->chatMessagesService->sendNewMessageEvent($message, $request['chatroom']);
-        return new ChatmessageResource($message);
+        return new ChatmessageInfoResource($messageInfo);
     }
 
     /**

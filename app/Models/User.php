@@ -100,4 +100,6 @@ class User extends Authenticatable
     public function chatMessageInfo(){
         return $this->hasMany(ChatMessageInfo::class);
     }
+
+   
 }

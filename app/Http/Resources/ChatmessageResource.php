@@ -18,10 +18,6 @@ class ChatmessageResource extends JsonResource
             'id' => $this->id,
             'content' => $this->content,
             'hidden' => $this->hidden,
-            'creator' => [
-                'id' => $this->user->first()->id,
-                'username' => $this->user->first()->username,
-            ]
         ];
     }
 }

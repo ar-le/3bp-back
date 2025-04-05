@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChatMessageController;
 use App\Http\Controllers\ChatroomController;
 use App\Http\Controllers\TransmissionController;
+use App\Http\Controllers\UserController;
 use App\Http\Middleware\RoleCheck;
 use App\Http\Middleware\TeamCheck;
 use App\Models\Chatmessage;
@@ -14,7 +15,7 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-
+//Auth
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 //register checks
@@ -36,10 +37,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::put('chatrooms', [ChatroomController::class, 'update']);
     Route::delete('chatrooms/{chatroomId}', [ChatroomController::class, 'destroy']);
     Route::get('chatrooms/userteams', [ChatroomController::class, 'getUserTeamsChatrooms']);
+    Route::get('chatroomInfo', [ChatroomController::class, 'show']);
 
 
     //chat messages
-    Route::middleware([RoleCheck::class.':admin'])->group(function () {
+    Route::middleware([RoleCheck::class . ':admin'])->group(function () {
         Route::get('chatmessages/reported', [ChatMessageController::class, 'getReported']);
         Route::put('chatmessages/hide', [ChatMessageController::class, 'hide']);
         Route::delete('chatmessages', [ChatMessageController::class, 'destroy']);
@@ -50,7 +52,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::middleware([TeamCheck::class])->group(function () {
         Route::get('chatmessages', [ChatMessageController::class, 'index']);
-        Route::post('chatmessages/create', [ChatMessageController::class, 'store']);
+        Route::post('chatmessages/send', [ChatMessageController::class, 'store']);
     });
 
 
@@ -63,5 +65,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('transmissions', [TransmissionController::class, 'store']);
     Route::put('transmissions', [TransmissionController::class, 'update']);
     Route::delete('transmissions/{id}', [TransmissionController::class, 'destroy']);
+
+    //user
+    Route::middleware([RoleCheck::class . ':admin,mod'])->group(function () {
+        Route::get('characters', [UserController::class, 'getModCharacters']);
+    });
+
 
 });

@@ -24,4 +24,9 @@ class Chatmessage extends Model
         return $this->belongsTo(User::class, 'mod_id');
     }
 
+    public function chatmessageInfo()
+    {
+        return $this->hasOne(ChatMessageInfo::class, 'chatmessage_id');
+    }
+
 }

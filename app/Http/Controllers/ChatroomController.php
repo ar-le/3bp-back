@@ -65,9 +65,10 @@ class ChatroomController extends Controller
 
     }
 
-    public function show(chatroom $chatroom)
+    public function show(Request $request)
     {
-        //
+        $chatroomInf = Chatroom::findOrFail($request->chatroom);
+        return new ChatroomUserResource($chatroomInf);
     }
 
 
