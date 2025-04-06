@@ -101,12 +101,10 @@ class User extends Authenticatable
     }
 
     public function mostUsedChatrooms(){
-        return $this->chatroomsParticipated()->withCount(['chatmessages' => function (Builder $query){
+        return $this->chatroomsParticipated()->where('team_id', null)->withCount(['chatmessages' => function (Builder $query){
             $query->whereRelation('user', 'user_id', $this->id);
         }])->orderBy('chatmessages_count', 'desc')->take(5)->get();
     }
-
-
 
 
     //pivote
