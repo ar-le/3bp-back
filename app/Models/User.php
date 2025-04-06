@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -94,6 +96,17 @@ class User extends Authenticatable
         return $this->belongsToMany(ChatRoom::class, 'chatmessage_chatroom_user')->using(ChatMessageInfo::class)->orderBy('created_at', 'desc')->distinct();
     }
 
+    public function totalMessages(){
+        return $this->chatmessages()->count();
+    }
+
+    public function mostUsedChatrooms(){
+        return $this->chatroomsParticipated()->withCount(['chatmessages' => function (Builder $query){
+            $query->whereRelation('user', 'user_id', $this->id);
+        }])->orderBy('chatmessages_count', 'desc')->take(5)->get();
+    }
+
+
 
 
     //pivote
@@ -101,5 +114,5 @@ class User extends Authenticatable
         return $this->hasMany(ChatMessageInfo::class);
     }
 
-   
+
 }

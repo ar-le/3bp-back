@@ -69,7 +69,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
     //user
     Route::middleware([RoleCheck::class . ':admin,mod'])->group(function () {
         Route::get('users/mod/characters', [UserController::class, 'getModCharacters']);
+        Route::put('users/givePoints',  [UserController::class, 'givePoints']);
     });
+
+    Route::get('users/profile', [UserController::class, 'getProfileInfo']);
 
 
 });
