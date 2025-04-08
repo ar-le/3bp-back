@@ -22,7 +22,7 @@ class GetUserTeamChatroomAction
         }
         $team = $user->team;
         if ($team) {
-            return $user->team->chatroom;
+            return [$user->team->chatroom];
         }
 
         return [];

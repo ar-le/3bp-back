@@ -13,7 +13,7 @@ class TeamSeeder extends Seeder
      */
     public function run(): void
     {
-        Team::create(['name'=>'Resistance']);
-        Team::create(['name'=>'Escapists']);
+        Team::create(['name'=>'Resistance', 'password' => 'password']);
+        Team::create(['name'=>'Escapists', 'password' => 'password']);
     }
 }
