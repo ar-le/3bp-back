@@ -48,6 +48,16 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('chatmessages/reported', [ChatMessageController::class, 'getReported']);
         Route::put('chatmessages/hide', [ChatMessageController::class, 'hide']);
         Route::delete('chatmessages', [ChatMessageController::class, 'destroy']);
+
+        //user crud
+        Route::post('users', [UserController::class, 'createUserAdmin']);
+        Route::put('users', [UserController::class, 'updateUserAdmin']);
+        Route::get('users', [UserController::class, 'getUsers']);
+        Route::delete('users/{id}', [UserController::class, 'destroy']);
+        Route::get('users/{id}', [UserController::class, 'get']);
+
+        //teams
+        Route::get('teams', [TeamsController::class, 'index']);
     });
 
     Route::get('chatmessages/report', [ChatMessageController::class, 'report']);

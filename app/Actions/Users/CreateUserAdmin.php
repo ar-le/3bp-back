@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Actions;
+namespace App\Actions\Users;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\Request;
 
-class CreateUser
+class CreateUserAdmin
 {
     /**
      * Create a new class instance.
@@ -25,9 +24,9 @@ class CreateUser
             'avatar' => (isset($request['base64Avatar']) && $request['base64Avatar'] != null) ?
                 leerImagen($request['base64Avatar'], $request['extension'], 'avatars')
                 : null,
-            'role' => 'user',
-            'points' =>  0,
-            'team_id' => null,
+            'role' => isset($request['role']) ? $request['role'] : 'user',
+            'points' => isset($request['points']) ? $request['points'] : 0,
+            'team_id' => isset($request['team_id']) ? $request['team_id'] : null,
             'accepts_cookies'=> isset($request['accepts_cookies']) ? $request['accepts_cookies'] : false,
             'accepts_communication'=> isset($request['accepts_communication']) ? $request['accepts_communication'] : false
         ]);

@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AddUserPointsRequest;
 use App\Http\Requests\GetUserRequest;
+use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\NewPointsUserResource;
 use App\Http\Resources\UserBasicResource;
 use App\Http\Resources\UserProfileResource;
+use App\Http\Resources\UserResource;
+use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -38,5 +42,35 @@ class UserController
     {
         $user = $this->userService->givePoints($request->user, $request->points);
         return UserProfileResource::make($user);
+    }
+
+    public function createUserAdmin(RegisterRequest $request)
+    {
+        $user = $this->userService->createUserAdmin($request->all());
+        return new UserResource($user);
+    }
+
+    public function getUsers(Request $request)
+    {
+        $users = $this->userService->getUsers($request);
+        return UserResource::collection($users);
+    }
+
+    public function get($id)
+    {
+        $user = User::findOrFail($id);
+        return new UserResource($user);
+    }
+
+    public function updateUserAdmin(UpdateUserRequest $request)
+    {
+        $user = $this->userService->updateUserAdmin($request->all());
+        return new UserResource($user);
+    }
+
+    public function destroy($id)
+    {
+       $user =  $this->userService->deleteUser($id);
+        return new UserResource($user);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\TeamResource;
 use App\Models\Team;
 use App\Services\TeamsService;
 use Illuminate\Http\Request;
@@ -25,5 +26,11 @@ class TeamsController extends Controller
         $message = $this->teamsService->joinTeam($request->team, $request->password);
 
         return response()->json($message);
+    }
+
+    public function index()
+    {
+        $teams = Team::all();
+        return TeamResource::collection($teams);
     }
 }

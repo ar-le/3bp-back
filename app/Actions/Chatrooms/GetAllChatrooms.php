@@ -27,6 +27,6 @@ class GetAllChatrooms
 
         if(Arr::exists($request, 'after') && !empty($request['after'])) $chatrooms->whereDate('created_at', '>', $request['after'] );
          $chatrooms->orderBy('created_at', 'desc');
-        return $chatrooms->paginate(Arr::get($request, 'perPage', 5));
+        return $chatrooms->paginate(Arr::get($request, 'perPage', 10));
     }
 }

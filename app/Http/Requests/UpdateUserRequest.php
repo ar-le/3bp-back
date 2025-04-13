@@ -2,13 +2,13 @@
 
 namespace App\Http\Requests;
 
+use App\Models\User;
 use App\Rules\ValidQuantity;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Fluent;
 use Illuminate\Validation\Rule;
 
-class RegisterRequest extends FormRequest
+class UpdateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,16 +25,19 @@ class RegisterRequest extends FormRequest
      */
     public function rules(): array
     {
+        //Según la documentación de laravel no hay que pasar user input al rule::unique por que puede haber sql injection
+        $user = User::findOrFail($this->id);
+        //dd($user->id);
         return [
+            'id' => ['required','exists:users,id'],
             'username' => [
                 'required',
                 'string',
                 'min:3',
-                'unique:users,username',
-                'not_regex:/[\s@]+/'
+                Rule::unique('users', 'username')->ignore($user->id),
                 ],
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:8',
+            'email' => ['required','email',Rule::unique('users')->ignore($user->id)],
+            'password' => 'nullable |sometimes | min:8',
             'avatar' => 'sometimes|string',
             'extension' => [Rule::excludeIf(!$this->has('avatar') || $this->avatar == null), 'required', 'in:png,jpg,gif,jpeg,webp'],
             'accepts_cookies' => 'required|boolean|accepted',
@@ -42,8 +45,7 @@ class RegisterRequest extends FormRequest
             'role' => [Rule::requiredIf(fn () => Auth::user() && Auth::user()->role == 'admin'),'string', 'in:admin,mod,user'],
             'points' => [Rule::requiredIf(fn () => Auth::user() && Auth::user()->role == 'admin'),'numeric', new ValidQuantity(0,1000)],
             'team_id' => ['nullable','in:1,2'],
-        
+
         ];
     }
-
 }
