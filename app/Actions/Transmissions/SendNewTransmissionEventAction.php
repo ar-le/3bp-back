@@ -4,6 +4,7 @@ namespace App\Actions\Transmissions;
 
 use App\Events\NewTransmission;
 use App\Models\Transmission;
+use Exception;
 
 class SendNewTransmissionEventAction
 {
@@ -15,6 +16,13 @@ class SendNewTransmissionEventAction
 
     public function execute(Transmission $transmission)
     {
-        event(new NewTransmission($transmission));
+        try{
+            event(new NewTransmission($transmission));
+        }
+        catch(Exception $e)
+        {
+
+        }
+
     }
 }

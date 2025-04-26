@@ -18,6 +18,6 @@ class GetReportedChatmessagesAction
     {
         $messages = ChatMessageInfo::with(['user', 'chatmessage', 'chatroom'])->whereRelation('chatmessage', 'complaints', '>' , $request['complaintsFilter'] ?? 1);
 
-        return $messages->orderBy('id', 'desc')->simplePaginate(10);
+        return $messages->orderBy('id', 'desc')->cursorPaginate(10);
     }
 }

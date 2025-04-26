@@ -7,7 +7,7 @@ use App\Http\Requests\GetChatroomsRequest;
 use App\Http\Requests\PostChatroomUser;
 use App\Http\Requests\PutChatroomUser;
 use App\Http\Resources\ChatroomUserResource;
-use App\Models\chatroom;
+use App\Models\Chatroom;
 use App\Http\Requests\StorechatroomRequest;
 use App\Http\Requests\UpdatechatroomRequest;
 use App\Http\Resources\ChatroomAuthResource;

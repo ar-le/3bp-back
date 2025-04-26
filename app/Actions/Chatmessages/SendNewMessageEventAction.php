@@ -4,6 +4,7 @@ namespace App\Actions\Chatmessages;
 
 use App\Events\NewMessage;
 use App\Models\Chatmessage;
+use Exception;
 
 class SendNewMessageEventAction
 {
@@ -17,6 +18,11 @@ class SendNewMessageEventAction
 
     public function execute(Chatmessage $message, $chatroom)
     {
-        event(new NewMessage($message, $chatroom));
+        try{
+            event(new NewMessage($message, $chatroom));
+        }
+        catch(Exception $e){
+
+        }
     }
 }

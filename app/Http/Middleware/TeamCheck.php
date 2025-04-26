@@ -17,6 +17,7 @@ class TeamCheck
      */
     public function handle(Request $request, Closure $next): Response
     {
+        //Middleware para comprobar si un usuario puede acceder a una chatroom relacionada con un equipo
         $chatroom = Chatroom::findOrFail($request->chatroom);
 
         //Si la chatroom no tiene equipo ok
