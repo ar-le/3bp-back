@@ -93,7 +93,7 @@ class User extends Authenticatable
     }
 
     public function chatroomsParticipated(){
-        return $this->belongsToMany(ChatRoom::class, 'chatmessage_chatroom_user')->using(ChatMessageInfo::class)->orderBy('created_at', 'desc')->distinct();
+        return $this->belongsToMany(Chatroom::class, 'chatmessage_chatroom_user')->using(ChatMessageInfo::class)->orderBy('created_at', 'desc')->distinct();
     }
 
     public function totalMessages(){
