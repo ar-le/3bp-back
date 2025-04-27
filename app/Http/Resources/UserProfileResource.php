@@ -19,7 +19,7 @@ class UserProfileResource extends JsonResource
         return [
             'id' => $this->id,
             'username' => $this->username,
-            'avatar' => $this->avatar ? asset($this->avatar) : null,
+            'avatar' => $this->avatar ? asset('storage/avatars/'.$this->avatar) : null,
             'totalMessages' => $this->totalMessages(),
             'mostUsedChats' => ChatroomUserResource::collection($this->mostUsedChatrooms()),
             'joined' => $joined->format('d-m-Y'),

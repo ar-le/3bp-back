@@ -14,6 +14,6 @@ function leerImagen($base64, $format, $directory)
     $nombre = time() . '.' . $format;
     Storage::disk('public')->put($directory . "/" . $nombre, $data, 'public');
 
-    return "/storage/" . $nombre;
+    return $nombre;
 
 }
