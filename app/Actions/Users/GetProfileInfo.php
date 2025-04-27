@@ -17,6 +17,7 @@ class GetProfileInfo
 
     public function execute($userId)
     {
+      
         $user = User::with(['team', 'recruitingTeam'])->findOrFail($userId);
         return $user;
     }

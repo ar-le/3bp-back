@@ -49,6 +49,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::put('chatmessages/hide', [ChatMessageController::class, 'hide']);
         Route::delete('chatmessages', [ChatMessageController::class, 'destroy']);
 
+        //user utilidades
+        Route::get('users/profile', [UserController::class, 'getProfileInfo']);
+
+        Route::middleware([RoleCheck::class . ':admin,mod'])->group(function () {
+            Route::get('users/mod/characters', [UserController::class, 'getModCharacters']);
+            Route::put('users/givePoints', [UserController::class, 'givePoints']);
+        });
         //user crud
         Route::post('users', [UserController::class, 'createUserAdmin']);
         Route::put('users', [UserController::class, 'updateUserAdmin']);
@@ -79,13 +86,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::put('transmissions', [TransmissionController::class, 'update']);
     Route::delete('transmissions/{id}', [TransmissionController::class, 'destroy']);
 
-    //user
-    Route::middleware([RoleCheck::class . ':admin,mod'])->group(function () {
-        Route::get('users/mod/characters', [UserController::class, 'getModCharacters']);
-        Route::put('users/givePoints', [UserController::class, 'givePoints']);
-    });
 
-    Route::get('users/profile', [UserController::class, 'getProfileInfo']);
+
+
 
     //Teams
     Route::get('joinTeam', [TeamsController::class, 'joinTeam']);
