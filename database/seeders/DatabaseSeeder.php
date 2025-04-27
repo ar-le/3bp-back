@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\ChatMessage;
+use App\Models\Chatmessage;
 use App\Models\Chatmessage as ModelsChatmessage;
 use App\Models\ChatMessageInfo;
 use App\Models\Chatroom;

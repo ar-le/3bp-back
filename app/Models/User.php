@@ -85,11 +85,11 @@ class User extends Authenticatable
         return $this->belongsToMany(ChatMessage::class)->using(ChatMessageInfo::class);
     } */
     public function chatmessages(){
-        return $this->belongsToMany(ChatMessage::class, 'chatmessage_chatroom_user')->using(ChatMessageInfo::class)->withPivot('chatroom_id');
+        return $this->belongsToMany(Chatmessage::class, 'chatmessage_chatroom_user')->using(ChatMessageInfo::class)->withPivot('chatroom_id');
     }
 
     public function lastChatmessages(){
-        return $this->belongsToMany(ChatMessage::class, 'chatmessage_chatroom_user')->using(ChatMessageInfo::class)->orderBy('created_at', 'desc')->take(10);
+        return $this->belongsToMany(Chatmessage::class, 'chatmessage_chatroom_user')->using(ChatMessageInfo::class)->orderBy('created_at', 'desc')->take(10);
     }
 
     public function chatroomsParticipated(){
