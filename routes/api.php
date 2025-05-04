@@ -44,23 +44,20 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('users/profile', [UserController::class, 'getProfileInfo']);
 
+    Route::middleware([RoleCheck::class . ':admin,mod'])->group(function () {
+        Route::get('users/mod/characters', [UserController::class, 'getModCharacters']);
+        Route::put('users/givePoints', [UserController::class, 'givePoints']);
+        Route::get('chatmessages/reported', [ChatMessageController::class, 'getReported']);
+        Route::put('chatmessages/hide', [ChatMessageController::class, 'hide']);
+    });
+
     //chat messages
     Route::middleware([RoleCheck::class . ':admin'])->group(function () {
         //chatrooms
         Route::get('chatrooms/teams', [ChatroomController::class, 'getTeamsChatroom']);
         Route::delete('chatrooms/{chatroomId}', [ChatroomController::class, 'destroy']);
-
-        Route::get('chatmessages/reported', [ChatMessageController::class, 'getReported']);
-        Route::put('chatmessages/hide', [ChatMessageController::class, 'hide']);
         Route::delete('chatmessages', [ChatMessageController::class, 'destroy']);
 
-        //user utilidades
-        
-
-        Route::middleware([RoleCheck::class . ':admin,mod'])->group(function () {
-            Route::get('users/mod/characters', [UserController::class, 'getModCharacters']);
-            Route::put('users/givePoints', [UserController::class, 'givePoints']);
-        });
         //user crud
         Route::post('users', [UserController::class, 'createUserAdmin']);
         Route::put('users', [UserController::class, 'updateUserAdmin']);
@@ -91,7 +88,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 //Route::apiResource('transmissions', TransmissionController::class);
     Route::get('transmissions', [TransmissionController::class, 'index']);
     Route::get('transmission/{id}', [TransmissionController::class, 'show']);
-   
+
 
     //Teams
     Route::get('joinTeam', [TeamsController::class, 'joinTeam']);
