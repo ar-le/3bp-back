@@ -38,19 +38,24 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('userchatrooms', [ChatroomController::class, 'getUserChatrooms']);
     Route::post('chatrooms/create', [ChatroomController::class, 'store']);
     Route::put('chatrooms', [ChatroomController::class, 'update']);
-    Route::delete('chatrooms/{chatroomId}', [ChatroomController::class, 'destroy']);
     Route::get('chatrooms/userteams', [ChatroomController::class, 'getUserTeamsChatrooms']);
     Route::get('chatroomInfo', [ChatroomController::class, 'show']);
 
 
+    Route::get('users/profile', [UserController::class, 'getProfileInfo']);
+
     //chat messages
     Route::middleware([RoleCheck::class . ':admin'])->group(function () {
+        //chatrooms
+        Route::get('chatrooms/teams', [ChatroomController::class, 'getTeamsChatroom']);
+        Route::delete('chatrooms/{chatroomId}', [ChatroomController::class, 'destroy']);
+
         Route::get('chatmessages/reported', [ChatMessageController::class, 'getReported']);
         Route::put('chatmessages/hide', [ChatMessageController::class, 'hide']);
         Route::delete('chatmessages', [ChatMessageController::class, 'destroy']);
 
         //user utilidades
-        Route::get('users/profile', [UserController::class, 'getProfileInfo']);
+        
 
         Route::middleware([RoleCheck::class . ':admin,mod'])->group(function () {
             Route::get('users/mod/characters', [UserController::class, 'getModCharacters']);
@@ -65,6 +70,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
         //teams
         Route::get('teams', [TeamsController::class, 'index']);
+
+        //transmissions
+        Route::post('transmissions', [TransmissionController::class, 'store']);
+        Route::put('transmissions', [TransmissionController::class, 'update']);
+        Route::delete('transmissions/{id}', [TransmissionController::class, 'destroy']);
     });
 
     Route::get('chatmessages/report', [ChatMessageController::class, 'report']);
@@ -77,18 +87,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 
 
-
     //transmissions
 //Route::apiResource('transmissions', TransmissionController::class);
     Route::get('transmissions', [TransmissionController::class, 'index']);
     Route::get('transmission/{id}', [TransmissionController::class, 'show']);
-    Route::post('transmissions', [TransmissionController::class, 'store']);
-    Route::put('transmissions', [TransmissionController::class, 'update']);
-    Route::delete('transmissions/{id}', [TransmissionController::class, 'destroy']);
-
-
-
-
+   
 
     //Teams
     Route::get('joinTeam', [TeamsController::class, 'joinTeam']);

@@ -17,7 +17,7 @@ class LoggedUserResource extends JsonResource
         return [
             'id' => $this->id,
             'username' => $this->username,
-            'avatar' => $this->avatar ? asset($this->avatar) : null,
+            'avatar' => $this->avatar ? asset('storage/avatars/'.$this->avatar) : null,
             'team' => TeamResource::make($this->team),
             'role' => $this->role,
             'token' => $this->createToken('auth_token')->plainTextToken

@@ -17,7 +17,7 @@ class JoinTeamAction
 
     public function execute ($team, $password)
     {
-        if($team == 'resist') $teamId = 1;
+        if($team == 'resistance') $teamId = 1;
         else $teamId = 2;
         //comprobar si el equipo está reclutando, si el usuario pertenece ya a un equipo, y si la contrañesa es correcta
         $team = Team::findOrFail($teamId);
