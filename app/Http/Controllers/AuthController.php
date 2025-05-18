@@ -33,7 +33,7 @@ class AuthController extends Controller
         return response()->json(new LoggedUserResource($user));
     }
 
-    // Logout method
+
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
@@ -41,19 +41,19 @@ class AuthController extends Controller
         return response()->json(['msg' => 'Successfully logged out']);
     }
 
-    // Register method
+
     public function register(RegisterRequest $request)
     {
         $user = $this->userService->createUser($request->all());
-
+        $this->userService->sendWelcomeEmail($user);
         return response()->json(new LoggedUserResource($user));
     }
 
-    //Available username
+
     public function availableUsername($username)
     {
         $user = User::where('username', $username)->first();
-        return $user ? 
+        return $user ?
             response()->json(['msg' => 'Username taken'], 400) :
             response()->json(['msg' => 'Username available'], 200)
             ;
@@ -64,7 +64,7 @@ class AuthController extends Controller
     public function availableEmail($email)
     {
         $user = User::where('email', $email)->first();
-        return $user ? 
+        return $user ?
             response()->json(['msg' => 'email taken'], 400) :
             response()->json(['msg' => 'email available'], 200)
             ;

@@ -19,9 +19,6 @@ class NewMessage implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    /**
-     * Create a new event instance.
-     */
 
     private Chatmessage $chatmessage;
     private $chatroomId;

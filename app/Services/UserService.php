@@ -10,6 +10,7 @@ use App\Actions\Users\GetModCharactersAction;
 use App\Actions\Users\GetProfileInfo;
 use App\Actions\Users\GetUsersAction;
 use App\Actions\Users\GivePointsAction;
+use App\Actions\Users\SendWelcomeEmailAction;
 use App\Actions\Users\UpdateUserAdminAction;
 use Illuminate\Http\Request;
 
@@ -23,9 +24,12 @@ class UserService
     private GetUsersAction $getUsersAction;
     private UpdateUserAdminAction $updateUserAdminAction;
     private DeleteUserAction $deleteUserAction;
+    private SendWelcomeEmailAction $sendWelcomeEmailAction;
 
-    public function __construct(CreateUser $createUser, GetModCharactersAction $getModCharactersAction, GetProfileInfo $getProfileInfo, GivePointsAction $givePointsAction, CreateUserAdmin $createUserAdmin, GetUsersAction $getUsersAction, UpdateUserAdminAction $updateUserAdminAction, DeleteUserAction $deleteUserAction)
+    public function __construct(CreateUser $createUser, GetModCharactersAction $getModCharactersAction, GetProfileInfo $getProfileInfo, GivePointsAction $givePointsAction, CreateUserAdmin $createUserAdmin, GetUsersAction $getUsersAction, UpdateUserAdminAction $updateUserAdminAction, DeleteUserAction $deleteUserAction, SendWelcomeEmailAction $sendWelcomeEmailAction)
     {
+
+
         $this->getProfileInfo = $getProfileInfo;
         $this->getModCharactersAction = $getModCharactersAction;
         $this->createUser = $createUser;
@@ -34,6 +38,7 @@ class UserService
         $this->getUsersAction = $getUsersAction;
         $this->updateUserAdminAction = $updateUserAdminAction;
         $this->deleteUserAction = $deleteUserAction;
+        $this->sendWelcomeEmailAction = $sendWelcomeEmailAction;
     }
 
     //registrar
@@ -77,6 +82,10 @@ class UserService
     public function deleteUser($id)
     {
         return $this->deleteUserAction->execute($id);
+    }
+    public function sendWelcomeEmail($user)
+    {
+        return $this->sendWelcomeEmailAction->execute($user);
     }
 
 

@@ -85,7 +85,8 @@ class User extends Authenticatable
         return $this->belongsToMany(ChatMessage::class)->using(ChatMessageInfo::class);
     } */
     public function chatmessages(){
-        return $this->belongsToMany(Chatmessage::class, 'chatmessage_chatroom_user')->using(ChatMessageInfo::class)->withPivot('chatroom_id');
+        return $this->belongsToMany(Chatmessage::class, 'chatmessage_chatroom_user')->using(ChatMessageInfo::class)
+        ;
     }
 
     public function lastChatmessages(){
