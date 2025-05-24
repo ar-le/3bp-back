@@ -16,10 +16,9 @@ class UpdateTeamRecruitingAction
 
     public function execute(array $data)
     {
-        if($data['team'] == 'resistance') $teamId = 1;
-        else $teamId = 2;
-        $team = Team::findOrFail($teamId);
-        $team->isRecruiting = $data['recruiting'];
+        
+        $team = Team::findOrFail($data['team']);
+        
         if (isset($data['password'])) {
             $team->password = $data['password'];
         }

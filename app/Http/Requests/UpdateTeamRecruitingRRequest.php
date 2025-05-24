@@ -22,9 +22,9 @@ class UpdateTeamRecruitingRRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'team' => 'required|in:resistance,escapists',
-            'recruiting' => 'required|boolean',
-            'password' => 'nullable|string',
+            'team' => 'required|integer|exists:teams,id',
+         
+            'password' => 'required|string',
         ];
     }
 }
