@@ -51,7 +51,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::put('chatmessages/hide', [ChatMessageController::class, 'hide']);
     });
 
-    //chat messages
+
     Route::middleware([RoleCheck::class . ':admin'])->group(function () {
         //chatrooms
         Route::get('chatrooms/teams', [ChatroomController::class, 'getTeamsChatroom']);
@@ -67,6 +67,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
         //teams
         Route::get('teams', [TeamsController::class, 'index']);
+        Route::put('teams/recruiting', [TeamsController::class, 'updateRecruiting']);
 
         //transmissions
         Route::post('transmissions', [TransmissionController::class, 'store']);

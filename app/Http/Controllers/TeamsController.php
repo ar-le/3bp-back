@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateTeamRecruitingRRequest;
 use App\Http\Resources\TeamResource;
 use App\Models\Team;
 use App\Services\TeamsService;
@@ -32,5 +33,12 @@ class TeamsController extends Controller
     {
         $teams = Team::all();
         return TeamResource::collection($teams);
+    }
+
+    public function updateRecruiting(UpdateTeamRecruitingRRequest $request)
+    {
+        $team = $this->teamsService->updateTeamRecruiting($request->all());
+
+        return new TeamResource($team);
     }
 }
