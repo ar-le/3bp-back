@@ -41,4 +41,15 @@ class TeamsController extends Controller
 
         return new TeamResource($team);
     }
+
+    public function show(Request $request)
+    {
+        $request->validate([
+            'team' => 'required|integer|exists:teams,id',
+        ]);
+        
+        $team = $this->teamsService->getTeam($request->team);
+
+        return new TeamResource($team);
+    }
 }

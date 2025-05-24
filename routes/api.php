@@ -68,6 +68,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         //teams
         Route::get('teams', [TeamsController::class, 'index']);
         Route::put('teams/recruiting', [TeamsController::class, 'updateRecruiting']);
+        Route::get('teams/get', [TeamsController::class, 'show']);
 
         //transmissions
         Route::post('transmissions', [TransmissionController::class, 'store']);

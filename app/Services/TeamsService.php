@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Actions\Teams\GetTeamAction;
 use App\Actions\Teams\JoinTeamAction;
 use App\Actions\Teams\UpdateTeamRecruitingAction;
 
@@ -9,10 +10,12 @@ class TeamsService
 {
     private JoinTeamAction $joinTeamAction;
     private UpdateTeamRecruitingAction $updateTeamRecruitingAction;
-    public function __construct(JoinTeamAction $joinTeamAction, UpdateTeamRecruitingAction $updateTeamRecruitingAction)
+    private GetTeamAction $getTeamAction;
+    public function __construct(JoinTeamAction $joinTeamAction, UpdateTeamRecruitingAction $updateTeamRecruitingAction, GetTeamAction $getTeamAction)
     {
-        $this->updateTeamRecruitingAction = $updateTeamRecruitingAction;
         $this->joinTeamAction = $joinTeamAction;
+        $this->updateTeamRecruitingAction = $updateTeamRecruitingAction;
+        $this->getTeamAction = $getTeamAction;
     }
 
 
@@ -25,6 +28,11 @@ class TeamsService
     {
         return $this->updateTeamRecruitingAction->execute($data);
     }
+    public function getTeam($teamId)
+    {
+        return $this->getTeamAction->execute($teamId);
+    }
+
 
 
 }
