@@ -43,6 +43,10 @@ return [
             ],
             'client_options' => [
                 // Guzzle client options: https://docs.guzzlephp.org/en/stable/request-options.html
+                'verify' => false,
+                'curl' => [
+                   // CURLOPT_RESOLVE => ['www.api.tbp.es:443:127.0.0.1']
+                ]
             ],
         ],
 
