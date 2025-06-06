@@ -16,7 +16,7 @@ return new class extends Migration
             $table->timestamps();
             $table->string('name');
             $table->text('description');
-            $table->foreignId('creator_id')->constrained('users');
+            $table->foreignId('creator_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('team_id')->nullable()->constrained()->cascadeOnDelete();
         });
 
