@@ -33,10 +33,27 @@ class ChatroomSeeder extends Seeder
 
         Chatroom::create([
             'name' => 'Last transmission discussion',
-            'description' => 'Share yout thoughts about the las trisolaran communication',
+            'description' => 'Share your thoughts about the last trisolaran communication',
             'creator_id' => User::firstWhere('username', '=', 'Ye Wenjie')->id,
             'team_id' => null
         ]);
+
+        $info = [
+            
+            'Clue nº7 - ideas?',
+            'Character discussion',
+            'UFO sighting',
+            'Breaking the cipher',
+            'ETO\'s goals',
+            'Trouble with rebels',
+            'How long do we have?'
+            
+        ];
+        foreach ($info as $title) {
+            Chatroom::create(['name' => $title, 'description' => 'description',
+            'creator_id' => 1,
+            'team_id' => null]);
+        }
 
         Chatroom::factory()->count(2)->create();
 

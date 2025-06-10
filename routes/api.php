@@ -43,7 +43,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 
     Route::get('users/profile', [UserController::class, 'getProfileInfo']);
+    
 
+    //Acceso para mods o admins
     Route::middleware([RoleCheck::class . ':admin,mod'])->group(function () {
         Route::get('users/mod/characters', [UserController::class, 'getModCharacters']);
         Route::put('users/givePoints', [UserController::class, 'givePoints']);
@@ -51,7 +53,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::put('chatmessages/hide', [ChatMessageController::class, 'hide']);
     });
 
-
+    //Acceso solo admins
     Route::middleware([RoleCheck::class . ':admin'])->group(function () {
         //chatrooms
         Route::get('chatrooms/teams', [ChatroomController::class, 'getTeamsChatroom']);
@@ -79,6 +81,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('chatmessages/report', [ChatMessageController::class, 'report']);
     Route::get('chatmessages/{id}', [ChatMessageController::class, 'show']);
 
+
+    //COmporbación equipo
     Route::middleware([TeamCheck::class])->group(function () {
         Route::get('chatmessages', [ChatMessageController::class, 'index']);
         Route::post('chatmessages/send', [ChatMessageController::class, 'store']);
@@ -87,7 +91,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 
     //transmissions
-//Route::apiResource('transmissions', TransmissionController::class);
     Route::get('transmissions', [TransmissionController::class, 'index']);
     Route::get('transmission/{id}', [TransmissionController::class, 'show']);
 
