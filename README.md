@@ -86,7 +86,7 @@ This API has an accompanying <a href="https://github.com/ar-le/3bp-front">fronte
 
 ### Prerequisites
 
-You will need to install Composer and Laravel.
+You will need to install Composer.
 
 ### Installation
 
