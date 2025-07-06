@@ -26,7 +26,7 @@
   <p align="center">
     For my final Web development course project I chose to design and develop a website meant to host an Augmented Reality Game,
     <br />
-    in which players will be able to chat in real time with each other, receive clues and join a team, unlocking secret options.
+    in which players will be able to chat in real time with each other, receive clues and also join a team, unlocking secret options.
     This project is a Laravel API that serves as backend for the website.
 
   </p>
@@ -65,7 +65,7 @@ The project makes extensive use of Laravel's functionalities to provide authenti
 </br>
 The real-time communication is based in Websockets technology, using Laravel Reverb to set up a Websockets server. More info on how the project can be deployed via Docker in <a href="https://github.com/ar-le/3bp-proyecto"> this repo. </a>
 </br>
-This api has an accompanying <a href="https://github.com/ar-le/3bp-front">frontend</a> in React.
+This API has an accompanying <a href="https://github.com/ar-le/3bp-front">frontend</a> in React.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -99,6 +99,7 @@ You will need to install Composer and Laravel.
    composer install
    ```
 3. Create a .env file and configure the mailing server options and Reverb options
+   </br>
     Reverb options should look something like this
    ```sh
    REVERB_APP_ID=000000
@@ -129,7 +130,7 @@ You will need to install Composer and Laravel.
 [license-shield]: https://img.shields.io/github/license/github_username/repo_name.svg?style=for-the-badge
 [license-url]: https://github.com/github_username/repo_name/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: www.linkedin.com/in/ariel-pascual-díaz-029499186
+[linkedin-url]: https://www.linkedin.com/in/ariel-pascual-díaz-029499186
 [product-screenshot]: images/screenshot.png
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
